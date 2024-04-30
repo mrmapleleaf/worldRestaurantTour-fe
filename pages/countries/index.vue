@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>国の一覧を表示する画面です</h1>
+    <h1>世界の国々</h1>
     <countryContainer></countryContainer>
+    <NuxtLink v-bind:to="{ name: 'index' }">Topに戻る</NuxtLink>
   </div>
 </template>
 
