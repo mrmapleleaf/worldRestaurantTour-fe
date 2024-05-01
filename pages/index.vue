@@ -9,8 +9,9 @@
         </template>
       </div>
     </div>
-    <button @click="chooseNextCountry">次に行く国を選ぶ！</button><br /><br />
-    <NuxtLink :to="{ name: 'countries' }">世界の国々</NuxtLink>
+    <div class="button_area">
+      <button @click="chooseNextCountry">次に行く国を選ぶ！</button><br /><br />
+    </div>
   </div>
 </template>
 
@@ -65,18 +66,19 @@ onMounted(() => {
 
 .choosing_area {
   height: 200px;
-}
-
-.inner_choosing_area {
   margin: 0 auto;
   border: 1px solid #000000;
-  width: 1200px;
-  height: 150px;
+  width: 80%;
   border-radius: 1rem;
 }
 
 .country_name {
   font-size: 50px;
   margin: 0;
+}
+
+.button_area {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 </style>
