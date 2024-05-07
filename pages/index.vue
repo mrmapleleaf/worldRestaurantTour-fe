@@ -24,6 +24,10 @@ const unvisitedCountry = ref<Array<Country>>([]);
 const nextCountry = ref<Country | null>(null);
 const choosingFlg = ref(false);
 
+onMounted(() => {
+  getAllCountries();
+});
+
 const getAllCountries = async () => {
   try {
     allCountries.value = await $fetch(
@@ -36,13 +40,14 @@ const getAllCountries = async () => {
 
 const getUnvisitedCountry = () => {
   unvisitedCountry.value = allCountries.value.filter(
-    (country) => !country.completed
+    (country) => !country.is_completed
   );
 };
 
 const chooseNextCountry = () => {
   choosingFlg.value = true;
   getUnvisitedCountry();
+
   const index = Math.floor(Math.random() * unvisitedCountry.value.length);
   const selectedCountry = unvisitedCountry.value[index];
   const confirmFlg = confirm(
@@ -50,13 +55,27 @@ const chooseNextCountry = () => {
   );
   if (confirmFlg) {
     nextCountry.value = selectedCountry;
+    decideNextCountry(nextCountry.value.id, true);
   }
   choosingFlg.value = false;
 };
 
-onMounted(() => {
-  getAllCountries();
-});
+const decideNextCountry = async (id: number, is_next: boolean) => {
+  try {
+    await $fetch('http://localhost:8080/country/chooseNextCountry', {
+      method: 'PUT',
+      body: JSON.stringify({
+        id: 1000,
+        is_next: is_next,
+      }),
+    });
+  } catch (error: any) {
+    showError({
+      statusCode: error.status,
+      statusMessage: error.message,
+    });
+  }
+};
 </script>
 
 <style scoped>
