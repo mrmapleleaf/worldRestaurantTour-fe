@@ -1,5 +1,6 @@
 <template>
   <h1>StatusCode : {{ $props.error.statusCode }}</h1>
+  <h2>{{ $props.error.statusMessage }}</h2>
   <component :is="errorPage" /><br />
   <button @click="handleError">TOPへ戻ります</button>
 </template>

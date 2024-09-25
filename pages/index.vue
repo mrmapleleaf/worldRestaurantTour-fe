@@ -17,15 +17,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import type { Country } from '~/interfaces';
+import type { Countries } from '~/interfaces';
 
-const allCountries = ref<Array<Country>>([]);
-const unvisitedCountry = ref<Array<Country>>([]);
-const nextCountry = ref<Country | null>(null);
-const choosingFlg = ref(false);
+const allCountries = ref<Array<Countries>>([]);
+const unvisitedCountry = ref<Array<Countries>>([]);
+const nextCountry = ref<Countries | null>(null);
 
 onMounted(() => {
   getAllCountries();
+  getNextCountry();
 });
 
 const getAllCountries = async () => {
@@ -40,12 +40,11 @@ const getAllCountries = async () => {
 
 const getUnvisitedCountry = () => {
   unvisitedCountry.value = allCountries.value.filter(
-    (country) => !country.is_completed
+    (country) => !country.completed
   );
 };
 
 const chooseNextCountry = () => {
-  choosingFlg.value = true;
   getUnvisitedCountry();
 
   const index = Math.floor(Math.random() * unvisitedCountry.value.length);
@@ -55,25 +54,44 @@ const chooseNextCountry = () => {
   );
   if (confirmFlg) {
     nextCountry.value = selectedCountry;
-    decideNextCountry(nextCountry.value.id, true);
+    changeNextCountry(nextCountry.value.id, true);
   }
-  choosingFlg.value = false;
 };
 
-const decideNextCountry = async (id: number, is_next: boolean) => {
-  try {
-    await $fetch('http://localhost:8080/country/chooseNextCountry', {
-      method: 'PUT',
-      body: JSON.stringify({
-        id: 1000,
-        is_next: is_next,
-      }),
-    });
-  } catch (error: any) {
+const changeNextCountry = async (id: number, next: boolean) => {
+  await $fetch('http://localhost:8080/country/changeNextCountry', {
+    method: 'PUT',
+    body: {
+      id: id,
+      next: next,
+    },
+  }).catch((error: any) => {
     showError({
       statusCode: error.status,
       statusMessage: error.message,
     });
+  });
+};
+
+const getNextCountry = async () => {
+  let nextCountryList = new Array<Countries>();
+  try {
+    nextCountryList = await $fetch(
+      'http://localhost:8080/country/nextCountry',
+      {
+        params: {
+          next: true,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (nextCountryList.length !== 0) {
+    nextCountry.value = nextCountryList[0];
+  } else {
+    nextCountry.value = null;
   }
 };
 </script>

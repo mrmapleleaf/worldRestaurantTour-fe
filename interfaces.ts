@@ -1,8 +1,8 @@
-export interface Country {
+export interface Countries {
   id: number;
   name: string;
-  is_next: boolean;
-  is_completed: boolean;
+  next: boolean;
+  completed: boolean;
   created_at: string;
   updated_at: string;
 }
