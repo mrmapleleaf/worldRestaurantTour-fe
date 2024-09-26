@@ -10,7 +10,15 @@
       </div>
     </div>
     <div class="button_area">
-      <button @click="chooseNextCountry">次に行く国を選ぶ！</button><br /><br />
+      <template v-if="!nextCountry">
+        <button @click="chooseNextCountry">次に行く国を選ぶ！</button
+        ><br /><br />
+      </template>
+      <template v-else>
+        <button @click="visitChosenCountry">この国に行ってきました！</button
+        ><br /><br />
+        <button @click="resetNextCountry">別の国にする</button><br /><br />
+      </template>
     </div>
   </div>
 </template>
@@ -21,7 +29,7 @@ import type { Countries } from '~/interfaces';
 
 const allCountries = ref<Array<Countries>>([]);
 const unvisitedCountry = ref<Array<Countries>>([]);
-const nextCountry = ref<Countries | null>(null);
+const nextCountry = ref<Countries | null>(null!);
 
 onMounted(() => {
   getAllCountries();
@@ -54,11 +62,48 @@ const chooseNextCountry = () => {
   );
   if (confirmFlg) {
     nextCountry.value = selectedCountry;
-    changeNextCountry(nextCountry.value.id, true);
+    decideNextCountry(nextCountry.value.id, true);
   }
 };
 
-const changeNextCountry = async (id: number, next: boolean) => {
+const resetNextCountry = () => {
+  const confirmFlg = confirm(
+    `次に行く国は${nextCountry.value!.name}でした。この国に行くのをやめますか？`
+  );
+  if (confirmFlg) {
+    decideNextCountry(nextCountry.value!.id, false);
+    nextCountry.value = null;
+  }
+};
+const visitChosenCountry = () => {
+  const confirmFlg = confirm(`${nextCountry.value!.name}に行ってきましたか？`);
+  if (confirmFlg) {
+    makeChosenCountryCompleted(nextCountry.value!.id, false, true);
+    nextCountry.value = null;
+  }
+};
+
+const makeChosenCountryCompleted = async (
+  id: number,
+  next: boolean,
+  completed: boolean
+) => {
+  await $fetch('http://localhost:8080/country/makeChosenCountryCompleted', {
+    method: 'PUT',
+    body: {
+      id: id,
+      next: next,
+      completed: completed,
+    },
+  }).catch((error: any) => {
+    showError({
+      statusCode: error.status,
+      statusMessage: error.message,
+    });
+  });
+};
+
+const decideNextCountry = async (id: number, next: boolean) => {
   await $fetch('http://localhost:8080/country/changeNextCountry', {
     method: 'PUT',
     body: {
