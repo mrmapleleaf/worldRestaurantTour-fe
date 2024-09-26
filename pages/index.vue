@@ -11,13 +11,17 @@
     </div>
     <div class="button_area">
       <template v-if="!nextCountry">
-        <button @click="chooseNextCountry">次に行く国を選ぶ！</button
+        <button @click="chooseNextCountry">
+          <label class="button-text">次に行く国を選ぶ！</label></button
         ><br /><br />
       </template>
       <template v-else>
-        <button @click="visitChosenCountry">この国に行ってきました！</button
+        <button @click="visitChosenCountry">
+          <label class="button-text">この国に行ってきました！</label></button
         ><br /><br />
-        <button @click="resetNextCountry">別の国にする</button><br /><br />
+        <button @click="resetNextCountry">
+          <label class="button-text">別の国にする</label></button
+        ><br /><br />
       </template>
     </div>
   </div>
@@ -162,5 +166,22 @@ const getNextCountry = async () => {
 .button_area {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+button {
+  width: 200px;
+  height: 50px;
+  background: #ffbb70;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #a46b15;
+}
+
+.button-text {
+  color: white;
 }
 </style>
