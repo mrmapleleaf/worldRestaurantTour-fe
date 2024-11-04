@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Country } from '~/interfaces';
+import type { Countries } from '~/interfaces';
 
-let countries = ref([] as Array<Country>);
+let countries = ref([] as Array<Countries>);
 const loading = ref(false);
 
 const getAllCountries = async () => {
