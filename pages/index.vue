@@ -11,7 +11,7 @@
     </div>
     <div class="button_area">
       <template v-if="!nextCountry">
-        <button @click="chooseNextCountry">
+        <button @click="setNextCountry">
           <label class="button-text">次に行く国を選ぶ！</label></button
         ><br /><br />
       </template>
@@ -19,7 +19,7 @@
         <button @click="visitChosenCountry">
           <label class="button-text">この国に行ってきました！</label></button
         ><br /><br />
-        <button @click="resetNextCountry">
+        <button @click="unsetNextCountry">
           <label class="button-text">別の国にする</label></button
         ><br /><br />
       </template>
@@ -56,7 +56,7 @@ const getUnvisitedCountry = () => {
   );
 };
 
-const chooseNextCountry = () => {
+const setNextCountry = () => {
   getUnvisitedCountry();
 
   const index = Math.floor(Math.random() * unvisitedCountry.value.length);
@@ -66,16 +66,16 @@ const chooseNextCountry = () => {
   );
   if (confirmFlg) {
     nextCountry.value = selectedCountry;
-    decideNextCountry(nextCountry.value.id, true);
+    decideNextCountry(nextCountry.value.id);
   }
 };
 
-const resetNextCountry = () => {
+const unsetNextCountry = () => {
   const confirmFlg = confirm(
     `次に行く国は${nextCountry.value!.name}でした。この国に行くのをやめますか？`
   );
   if (confirmFlg) {
-    decideNextCountry(nextCountry.value!.id, false);
+    resetNextCountry(nextCountry.value!.id);
     nextCountry.value = null;
   }
 };
@@ -107,12 +107,25 @@ const makeChosenCountryCompleted = async (
   });
 };
 
-const decideNextCountry = async (id: number, next: boolean) => {
-  await $fetch('http://localhost:8080/country/changeNextCountry', {
+const decideNextCountry = async (id: number) => {
+  await $fetch('http://localhost:8080/country/decideNextCountry', {
     method: 'PUT',
     body: {
       id: id,
-      next: next,
+    },
+  }).catch((error: any) => {
+    showError({
+      statusCode: error.status,
+      statusMessage: error.message,
+    });
+  });
+};
+
+const resetNextCountry = async (id: number) => {
+  await $fetch('http://localhost:8080/country/resetNextCountry', {
+    method: 'PUT',
+    body: {
+      id: id,
     },
   }).catch((error: any) => {
     showError({
