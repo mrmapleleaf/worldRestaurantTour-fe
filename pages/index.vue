@@ -92,12 +92,10 @@ const makeChosenCountryCompleted = async (
   next: boolean,
   completed: boolean
 ) => {
-  await $fetch('http://localhost:8080/country/makeChosenCountryCompleted', {
+  await $fetch('http://localhost:8080/country/setCompleted', {
     method: 'PUT',
     body: {
       id: id,
-      next: next,
-      completed: completed,
     },
   }).catch((error: any) => {
     showError({
