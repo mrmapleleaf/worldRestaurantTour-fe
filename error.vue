@@ -1,8 +1,12 @@
 <template>
-  <h1>StatusCode : {{ $props.error.statusCode }}</h1>
-  <h2>{{ $props.error.statusMessage }}</h2>
-  <component :is="errorPage" /><br />
-  <button @click="handleError">TOPへ戻ります</button>
+  <NuxtLayout>
+    <div class="error_display_area">
+      <h1>StatusCode : {{ $props.error.statusCode }}</h1>
+      <h2>{{ $props.error.statusMessage }}</h2>
+      <component :is="errorPage" /><br />
+      <button @click="handleError">TOPへ戻ります</button>
+    </div>
+  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -30,3 +34,13 @@ const errorPage = computed(() => {
 // Functions
 const handleError = () => clearError({ redirect: '/' });
 </script>
+
+<style lang="css">
+.error_display_area {
+  margin-bottom: 50px;
+}
+
+.button-text {
+  color: white;
+}
+</style>

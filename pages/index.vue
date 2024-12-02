@@ -31,7 +31,6 @@
 import { ref, onMounted } from 'vue';
 import type {
   Countries,
-  CountryResponse,
   AllCountriesIndexResponse,
   NextCountryResponse,
 } from '~/interfaces';
@@ -57,12 +56,6 @@ const getAllCountries = async () => {
   }
 };
 
-const getUnvisitedCountry = () => {
-  unvisitedCountry.value = allCountries.value.filter(
-    (country) => !country.completed
-  );
-};
-
 const setNextCountry = () => {
   getUnvisitedCountry();
 
@@ -75,6 +68,13 @@ const setNextCountry = () => {
     nextCountry.value = selectedCountry;
     decideNextCountry(nextCountry.value.id);
   }
+};
+
+const getUnvisitedCountry = () => {
+  unvisitedCountry.value = allCountries.value.filter(
+    (country) => !country.completed
+  );
+  console.log(unvisitedCountry.value);
 };
 
 const unsetNextCountry = () => {

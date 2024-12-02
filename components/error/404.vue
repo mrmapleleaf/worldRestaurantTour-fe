@@ -1,3 +1,3 @@
 <template>
-  <div>404です</div>
+  <div>指定されたページが見つかりません。</div>
 </template>
