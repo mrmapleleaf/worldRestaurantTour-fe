@@ -16,3 +16,15 @@ export interface Restaurant {
   created_at: string;
   updated_at: string;
 }
+
+export interface AllCountriesIndexResponse {
+  countries: Array<Countries>;
+}
+
+export interface CountryResponse {
+  country: Countries;
+}
+
+export interface NextCountryResponse {
+  nextCountry: Array<Countries>;
+}

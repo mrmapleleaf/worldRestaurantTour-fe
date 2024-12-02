@@ -33,7 +33,12 @@
 </template>
 
 <script setup lang="ts">
-import type { Countries } from '~/interfaces';
+import type {
+  Countries,
+  CountryResponse,
+  AllCountriesIndexResponse,
+  NextCountryResponse,
+} from '~/interfaces';
 
 let countries = ref([] as Array<Countries>);
 const loading = ref(false);
@@ -41,9 +46,10 @@ const loading = ref(false);
 const getAllCountries = async () => {
   loading.value = true;
   try {
-    countries.value = await $fetch(
+    const response = await $fetch<AllCountriesIndexResponse>(
       'http://localhost:8080/country/allCountries'
     );
+    countries.value = response.countries;
   } catch (error) {
     console.log(error);
   } finally {

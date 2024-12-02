@@ -29,7 +29,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import type { Countries } from '~/interfaces';
+import type {
+  Countries,
+  CountryResponse,
+  AllCountriesIndexResponse,
+  NextCountryResponse,
+} from '~/interfaces';
 
 const allCountries = ref<Array<Countries>>([]);
 const unvisitedCountry = ref<Array<Countries>>([]);
@@ -42,9 +47,11 @@ onMounted(() => {
 
 const getAllCountries = async () => {
   try {
-    allCountries.value = await $fetch(
+    const response = await $fetch<AllCountriesIndexResponse>(
       'http://localhost:8080/country/allCountries'
     );
+
+    allCountries.value = response.countries;
   } catch (error) {
     console.error(error);
   }
@@ -82,16 +89,12 @@ const unsetNextCountry = () => {
 const visitChosenCountry = () => {
   const confirmFlg = confirm(`${nextCountry.value!.name}に行ってきましたか？`);
   if (confirmFlg) {
-    makeChosenCountryCompleted(nextCountry.value!.id, false, true);
+    makeChosenCountryCompleted(nextCountry.value!.id);
     nextCountry.value = null;
   }
 };
 
-const makeChosenCountryCompleted = async (
-  id: number,
-  next: boolean,
-  completed: boolean
-) => {
+const makeChosenCountryCompleted = async (id: number) => {
   await $fetch('http://localhost:8080/country/setCompleted', {
     method: 'PUT',
     body: {
@@ -134,9 +137,8 @@ const resetNextCountry = async (id: number) => {
 };
 
 const getNextCountry = async () => {
-  let nextCountryList = new Array<Countries>();
   try {
-    nextCountryList = await $fetch(
+    let response = await $fetch<NextCountryResponse>(
       'http://localhost:8080/country/nextCountry',
       {
         params: {
@@ -144,14 +146,17 @@ const getNextCountry = async () => {
         },
       }
     );
+
+    let nextCountryList = new Array<Countries>();
+    nextCountryList = response.nextCountry;
+    console.log(nextCountryList);
+    if (nextCountryList) {
+      nextCountry.value = nextCountryList[0];
+    } else {
+      nextCountry.value = null;
+    }
   } catch (error) {
     console.log(error);
-  }
-
-  if (nextCountryList.length !== 0) {
-    nextCountry.value = nextCountryList[0];
-  } else {
-    nextCountry.value = null;
   }
 };
 </script>
