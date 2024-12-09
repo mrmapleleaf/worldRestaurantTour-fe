@@ -14,14 +14,12 @@
               <thead>
                 <th>国名</th>
                 <th>訪問有無</th>
-                <th>訪問した店</th>
               </thead>
               <tbody>
                 <tr v-for="country in countries">
                   <td>{{ country.name }}</td>
                   <td v-if="country.completed">訪問済</td>
                   <td v-else>未訪問</td>
-                  <td>行った店の名前を表示</td>
                 </tr>
               </tbody>
             </table>
