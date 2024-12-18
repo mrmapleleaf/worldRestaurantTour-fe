@@ -17,8 +17,12 @@
               </thead>
               <tbody>
                 <tr v-for="country in countries">
-                  <td>{{ country.name }}</td>
-                  <td v-if="country.completed">訪問済</td>
+                  <td>
+                    {{ country.name }}
+                  </td>
+                  <td v-if="country.completed">
+                    <a @click="onClickCountryName(country.id)">訪問済</a>
+                  </td>
                   <td v-else>未訪問</td>
                 </tr>
               </tbody>
@@ -33,9 +37,8 @@
 <script setup lang="ts">
 import type {
   Countries,
-  CountryResponse,
   AllCountriesIndexResponse,
-  NextCountryResponse,
+  RestaurantResponse,
 } from '~/interfaces';
 
 let countries = ref([] as Array<Countries>);
@@ -55,12 +58,30 @@ const getAllCountries = async () => {
   }
 };
 
+const onClickCountryName = async (countryId: number) => {
+  try {
+    const response = await $fetch<RestaurantResponse>(
+      `http://localhost:8080/restaurant/detail/${countryId}`
+    );
+
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loading.value = false;
+  }
+};
+
 onMounted(() => {
   getAllCountries();
 });
 </script>
 
 <style scoped>
+table {
+  border-collapse: collapse;
+}
+
 th {
   border: 1px grey solid;
   border-collapse: collapse;
@@ -71,5 +92,13 @@ th {
 .countryList {
   text-align: center;
   display: inline-block;
+}
+
+a {
+  display: block;
+}
+
+a:hover {
+  background-color: #fce2aa;
 }
 </style>

@@ -28,3 +28,7 @@ export interface CountryResponse {
 export interface NextCountryResponse {
   nextCountry: Array<Countries>;
 }
+
+export interface RestaurantResponse {
+  restaurant: Restaurant;
+}
