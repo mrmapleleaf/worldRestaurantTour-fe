@@ -12,6 +12,11 @@
             世界の国一覧
           </NuxtLink>
         </li>
+        <li>
+          <NuxtLink v-bind:to="{ name: 'restaurants' }" class="header_link">
+            レストラン一覧
+          </NuxtLink>
+        </li>
       </ul>
     </div>
   </header>

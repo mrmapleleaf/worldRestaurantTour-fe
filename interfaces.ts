@@ -32,3 +32,7 @@ export interface NextCountryResponse {
 export interface RestaurantResponse {
   restaurant: Restaurant;
 }
+
+export interface AllRestaurantsIndexResponse {
+  restaurants: Array<Restaurant>;
+}
