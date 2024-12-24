@@ -34,5 +34,5 @@ export interface RestaurantResponse {
 }
 
 export interface AllRestaurantsIndexResponse {
-  restaurants: Array<Restaurant>;
+  contents: Array<Restaurant>;
 }
