@@ -2,7 +2,6 @@ export interface Countries {
   id: number;
   name: string;
   next: boolean;
-  restaurants: Restaurant;
   completed: boolean;
   created_at: string;
   updated_at: string;
@@ -12,6 +11,7 @@ export interface Restaurant {
   id: number;
   name: string;
   thoughts: string;
+  url: string;
   countries: Countries;
   created_at: string;
   updated_at: string;
@@ -35,4 +35,8 @@ export interface RestaurantResponse {
 
 export interface AllRestaurantsIndexResponse {
   contents: Array<Restaurant>;
+}
+
+export interface RestaurantDetailResponse {
+  restaurant: Restaurant;
 }
