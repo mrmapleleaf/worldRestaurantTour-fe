@@ -11,9 +11,17 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "@quasar/extras": "^1.16.15",
     "nuxt": "^3.11.2",
+    "nuxt-quasar-ui": "^2.1.9",
     "pinia": "^2.1.7",
+    "quasar": "^2.17.5",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.8.1",
+    "sass": "^1.83.0",
+    "sass-embedded": "^1.83.0"
   }
 }
