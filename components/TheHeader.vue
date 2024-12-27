@@ -17,6 +17,14 @@
             レストラン一覧
           </NuxtLink>
         </li>
+        <li>
+          <NuxtLink
+            v-bind:to="{ name: 'restaurants-register' }"
+            class="header_link"
+          >
+            レストラン登録
+          </NuxtLink>
+        </li>
       </ul>
     </div>
   </header>

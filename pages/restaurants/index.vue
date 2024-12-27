@@ -9,7 +9,7 @@
 import restaurantContainer from '~/components/restaurants/restaurantContainer.vue';
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .container {
   text-align: center;
 }
