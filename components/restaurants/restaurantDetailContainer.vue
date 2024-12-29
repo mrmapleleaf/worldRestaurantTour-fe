@@ -5,21 +5,32 @@
     </template>
     <template v-else>
       <table>
-        <th>レストラン名</th>
-
-        <th>国名</th>
-
-        <th>URL</th>
-
-        <th>感想</th>
-
-        <td>{{ restaurantDetail.name }}</td>
-
-        <td>{{ restaurantDetail.countries.name }}</td>
-
-        <td>{{ restaurantDetail.url }}</td>
-
-        <td>{{ restaurantDetail.thoughts }}</td>
+        <thead>
+          <tr>
+            <th>レストラン名</th>
+          </tr>
+          <tr>
+            <td>{{ restaurantDetail.name }}</td>
+          </tr>
+          <tr>
+            <th>国名</th>
+          </tr>
+          <tr>
+            <td>{{ restaurantDetail.countries.name }}</td>
+          </tr>
+          <tr>
+            <th>URL</th>
+          </tr>
+          <tr>
+            <td>{{ restaurantDetail.url }}</td>
+          </tr>
+          <tr>
+            <th>感想</th>
+          </tr>
+          <tr>
+            <td>{{ restaurantDetail.thoughts }}</td>
+          </tr>
+        </thead>
       </table>
     </template>
   </ClientOnly>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>登録フォームのページです</h1>
+    <h1>レストラン登録フォーム</h1>
     <registerFormContainer></registerFormContainer>
   </div>
 </template>
