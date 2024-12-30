@@ -158,8 +158,8 @@ const registerRestaurant = async () => {
     console.log(error);
   }
 
-  // 登録したレストランの詳細画面に遷移;
-  if (response !== null) {
+  //登録したレストランの詳細画面に遷移;
+  if (response != null) {
     navigateTo(`/restaurants/6`);
   }
 };
