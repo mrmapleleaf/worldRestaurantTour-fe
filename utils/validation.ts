@@ -11,11 +11,12 @@ export const symbolValidation = (val: any) => {
   return symbolPattern.test(val) ? '記号は含められません' : true;
 };
 export const lengthValidation = (val: any, length: number) => {
-  console.log('valのlength', val.length);
+  if (!val) {
+    return true;
+  }
   return val.length <= length || `${length}文字以内で入力してください`;
 };
 export const urlValidation = (val: any) => {
-  console.log('urlValidation');
   // regex-weburl.js(https://gist.github.com/dperini/729294)を利用
   const re_weburl = new RegExp(
     '^' +
@@ -59,5 +60,5 @@ export const urlValidation = (val: any) => {
       '$',
     'i'
   );
-  return re_weburl.test(val) || '不適切なurlです';
+  return !val ? true : re_weburl.test(val) || '不適切なurlです';
 };

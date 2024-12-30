@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="q-pa-md">
-      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-form
+        @submit="onSubmit"
+        @reset="onReset"
+        class="q-gutter-md"
+        ref="restaurantFrom"
+      >
         <q-input
           filled
           v-model="name"
@@ -18,12 +23,13 @@
         <q-select
           filled
           v-model="countryId"
-          :options="countries"
-          option-label="name"
-          option-value="id"
+          :options="countriesOptions"
+          option-label="label"
+          option-value="value"
           emit-value
           map-options
           label="国"
+          hint="※必須"
           :rules="[(val) => val || 'このフィールドは必須です']"
         />
         <q-input
@@ -66,17 +72,36 @@
 </template>
 
 <script setup lang="ts">
-import type { AllCountriesIndexResponse, Countries } from '~/interfaces';
+import type {
+  AllCountriesIndexResponse,
+  Countries,
+  RestaurantResponse,
+} from '~/interfaces';
 
-const $q = useQuasar();
 const name = ref(null);
 const countryId = ref(null);
 const url = ref(null);
 const thoughts = ref(null);
 
 let countries = ref([] as Array<Countries>);
+let countriesMap = ref(new Map());
+let countriesOptions = ref(<Array<{ value: number; label: string }>>[]);
 
-const onSubmit = () => {};
+const onSubmit = () => {
+  console.log('submitです');
+  console.log('countriesMap', countriesMap.value);
+  const confirmFlg = confirm(
+    '下記の内容で登録しますか？\n' +
+      `レストラン名：${name.value} \n` +
+      `国名：${countriesMap.value.get(countryId.value)} \n` +
+      `URL：${url.value || '登録なし'} \n` +
+      `感想：${thoughts.value} \n`
+  );
+  if (confirmFlg) {
+    // レストラン登録処理
+    // registerRestaurant();
+  }
+};
 
 const onReset = () => {
   name.value = null;
@@ -85,8 +110,22 @@ const onReset = () => {
   thoughts.value = null;
 };
 
-const getAllCountriesForOption = onMounted(() => {
-  getAllCountries();
+const getAllCountriesForOption = onMounted(async () => {
+  // すべての国を取得
+  await getAllCountries();
+
+  // idと国名を抜き出して、Map化
+  countries.value.map((country) => {
+    countriesMap.value.set(country.id, country.name);
+  });
+
+  // Qselectの選択肢用にMapのエントリを配列化
+  countriesOptions.value = Array.from(countriesMap.value.entries()).map(
+    ([key, value]) => ({
+      value: key,
+      label: value,
+    })
+  );
 });
 
 const getAllCountries = async () => {
@@ -97,6 +136,31 @@ const getAllCountries = async () => {
     countries.value = response.countries;
   } catch (error) {
     console.log(error);
+  }
+};
+
+const registerRestaurant = async () => {
+  let response: any;
+  try {
+    response = await $fetch<RestaurantResponse>(
+      'http://localhost:8080/restaurant/register',
+      {
+        method: 'POST',
+        body: {
+          countryId: countryId.value,
+          name: name.value,
+          thoughts: thoughts.value,
+          url: url.value,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+
+  // 登録したレストランの詳細画面に遷移;
+  if (response !== null) {
+    navigateTo(`/restaurants/6`);
   }
 };
 </script>
