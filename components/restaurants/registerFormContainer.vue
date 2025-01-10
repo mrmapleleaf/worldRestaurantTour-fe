@@ -99,7 +99,7 @@ const onSubmit = () => {
   );
   if (confirmFlg) {
     // レストラン登録処理
-    // registerRestaurant();
+    registerRestaurant();
   }
 };
 
@@ -158,9 +158,8 @@ const registerRestaurant = async () => {
     console.log(error);
   }
 
-  //登録したレストランの詳細画面に遷移;
   if (response != null) {
-    navigateTo(`/restaurants/6`);
+    await navigateTo(`/restaurants/${response.restaurant.id}`);
   }
 };
 </script>
