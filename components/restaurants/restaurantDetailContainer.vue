@@ -3,45 +3,54 @@
     <template v-if="loading">
       <p>読み込み中</p>
     </template>
+
     <template v-else>
-      <table>
-        <thead>
-          <tr>
-            <th>店名</th>
-          </tr>
-          <tr>
-            <td>{{ restaurantDetail.name }}</td>
-          </tr>
-          <tr>
-            <th>国名</th>
-          </tr>
-          <tr>
-            <td>{{ restaurantDetail.countries.name }}</td>
-          </tr>
-          <tr>
-            <th>URL</th>
-          </tr>
-          <tr>
-            <td v-if="restaurantDetail.url">{{ restaurantDetail.url }}</td>
-            <td v-else>未登録</td>
-          </tr>
-          <tr>
-            <th>感想</th>
-          </tr>
-          <tr>
-            <td>{{ restaurantDetail.thoughts }}</td>
-          </tr>
-        </thead>
-      </table>
+      <div class="q-pa-lg">
+        <q-markup-table bordered>
+          <thead>
+            <tr>
+              <th>
+                <span class="text-weight-bolder text-subtitle2">店名</span>
+              </th>
+            </tr>
+            <tr>
+              <td>{{ restaurantDetail.name }}</td>
+            </tr>
+            <tr>
+              <th>
+                <span class="text-weight-bolder text-subtitle2">国名</span>
+              </th>
+            </tr>
+            <tr>
+              <td>{{ restaurantDetail.countries.name }}</td>
+            </tr>
+            <tr>
+              <th>
+                <span class="text-weight-bolder text-subtitle2">URL</span>
+              </th>
+            </tr>
+            <tr>
+              <td v-if="restaurantDetail.url">{{ restaurantDetail.url }}</td>
+              <td v-else>未登録</td>
+            </tr>
+            <tr>
+              <th>
+                <span class="text-weight-bolder text-subtitle2">感想</span>
+              </th>
+            </tr>
+            <tr>
+              <td>{{ restaurantDetail.thoughts }}</td>
+            </tr>
+          </thead>
+        </q-markup-table>
+      </div>
     </template>
   </ClientOnly>
 </template>
+
 <script setup lang="ts">
-import type {
-  Restaurant,
-  RestaurantDetailResponse,
-  Countries,
-} from '~/interfaces';
+import type { Restaurant, RestaurantDetailResponse } from '~/interfaces';
+import { mdiAccountKey, mdiTableChair } from '@quasar/extras/mdi-v6';
 
 let restaurantDetail: Restaurant = reactive<Restaurant>({
   id: 0,
@@ -86,9 +95,12 @@ onMounted(() => {
   getRestaurantDetail();
 });
 </script>
+
 <style lang="css" scoped>
-table {
-  margin-left: auto;
-  margin-right: auto;
+.table_header {
+  background-color: #ffbb70;
+}
+th {
+  background-color: whitesmoke;
 }
 </style>
