@@ -7,7 +7,7 @@
       <table>
         <thead>
           <tr>
-            <th>レストラン名</th>
+            <th>店名</th>
           </tr>
           <tr>
             <td>{{ restaurantDetail.name }}</td>
@@ -22,7 +22,8 @@
             <th>URL</th>
           </tr>
           <tr>
-            <td>{{ restaurantDetail.url }}</td>
+            <td v-if="restaurantDetail.url">{{ restaurantDetail.url }}</td>
+            <td v-else>未登録</td>
           </tr>
           <tr>
             <th>感想</th>
