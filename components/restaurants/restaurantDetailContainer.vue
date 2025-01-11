@@ -82,7 +82,6 @@ const getRestaurantDetail = async () => {
     const response = await $fetch<RestaurantDetailResponse>(
       `http://localhost:8080/restaurant/detail/${restaurantId}`
     );
-    console.log(response);
     restaurantDetail = response.restaurant;
   } catch (error) {
     console.log(error);

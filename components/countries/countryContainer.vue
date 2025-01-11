@@ -92,8 +92,6 @@ const onClickCountryName = async (countryId: number) => {
     const response = await $fetch<RestaurantResponse>(
       `http://localhost:8080/restaurant/detail/${countryId}`
     );
-
-    console.log(response);
   } catch (error) {
     console.log(error);
   } finally {

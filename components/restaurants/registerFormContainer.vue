@@ -88,8 +88,6 @@ let countriesMap = ref(new Map());
 let countriesOptions = ref(<Array<{ value: number; label: string }>>[]);
 
 const onSubmit = () => {
-  console.log('submitです');
-  console.log('countriesMap', countriesMap.value);
   const confirmFlg = confirm(
     '下記の内容で登録しますか？\n' +
       `レストラン名：${name.value} \n` +

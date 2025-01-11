@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <h1>世界の料理を食べに行こう🍳</h1>
+    <span>次に行く国は...？🌏</span>
     <div class="choosing_area">
-      <div class="inner_choosing_area">
-        <p>次に行く国は...？</p>
-        <template v-if="nextCountry">
-          <p class="country_name">{{ nextCountry.name }}</p>
-        </template>
-      </div>
+      <template v-if="nextCountry">
+        <div class="country_name">
+          <span>{{ nextCountry.name }}</span>
+        </div>
+      </template>
     </div>
     <div class="button_area">
       <template v-if="!nextCountry">
@@ -74,7 +74,6 @@ const getUnvisitedCountry = () => {
   unvisitedCountry.value = allCountries.value.filter(
     (country) => !country.completed
   );
-  console.log(unvisitedCountry.value);
 };
 
 const unsetNextCountry = () => {
@@ -149,7 +148,6 @@ const getNextCountry = async () => {
 
     let nextCountryList = new Array<Countries>();
     nextCountryList = response.nextCountry;
-    console.log(nextCountryList);
     if (nextCountryList) {
       nextCountry.value = nextCountryList[0];
     } else {
@@ -172,11 +170,13 @@ const getNextCountry = async () => {
   border: 1px solid #000000;
   width: 80%;
   border-radius: 1rem;
+  display: table;
 }
 
 .country_name {
   font-size: 50px;
-  margin: 0;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .button_area {
