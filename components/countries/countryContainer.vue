@@ -12,8 +12,10 @@
           <div class="countryList">
             <table>
               <thead>
-                <th>国名</th>
-                <th>訪問有無</th>
+                <tr>
+                  <th>国名</th>
+                  <th>訪問有無</th>
+                </tr>
               </thead>
               <tbody>
                 <tr v-for="country in countries">

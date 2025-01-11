@@ -11,8 +11,10 @@
         <div class="restaurantsList">
           <table>
             <thead>
-              <th>店名</th>
-              <th>国名</th>
+              <tr>
+                <th>店名</th>
+                <th>国名</th>
+              </tr>
             </thead>
             <tbody>
               <tr v-for="restaurant in restaurants">
