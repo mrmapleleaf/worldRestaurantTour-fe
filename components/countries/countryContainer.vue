@@ -108,10 +108,10 @@ const countCompletedCountry = (countries: Array<Countries>) => {
 onMounted(async () => {
   await getAllCountries();
   completedCountryCount.value = countCompletedCountry(countries.value);
-  getQTableValue();
+  arrangeDataForQTable();
 });
 
-const getQTableValue = () => {
+const arrangeDataForQTable = () => {
   columns.value = [
     {
       name: 'countryName',
