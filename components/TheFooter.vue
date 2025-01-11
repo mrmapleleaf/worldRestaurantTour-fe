@@ -1,12 +1,12 @@
 <template>
   <footer>
-    <div>mrmapleleaf</div>
+    <div><span class="footer-text text-subtitle1">by mrmapleleaf</span></div>
   </footer>
 </template>
 
 <script setup></script>
 
-<style scoped>
+<style lang="css" scoped>
 footer {
   bottom: 0;
   left: 0;
@@ -16,5 +16,8 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.footer-text {
+  color: white;
 }
 </style>

@@ -32,7 +32,12 @@
 
 <script setup></script>
 
-<style scoped>
+<style lang="css" scoped>
+.menu-content {
+  background: #ffbb70;
+  height: 50px;
+  display: flex;
+}
 ul {
   display: flex;
 }
@@ -43,14 +48,9 @@ li {
   align-items: center;
   justify-content: center;
 }
-.menu-content {
-  background: #ffbb70;
-  height: 50px;
-  display: flex;
-}
 
 .header_link {
-  color: black;
+  color: white;
   font-weight: bold;
   text-decoration: none;
 }

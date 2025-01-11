@@ -8,12 +8,16 @@
         <p>表示する内容がありません</p>
       </template>
       <template v-else>
-        <div class="restaurantsList">
-          <table>
+        <div class="restaurantsList q-pb-xl">
+          <q-markup-table bordered>
             <thead>
               <tr>
-                <th>店名</th>
-                <th>国名</th>
+                <th>
+                  <span class="text-weight-bolder text-subtitle2">店名</span>
+                </th>
+                <th>
+                  <span class="text-weight-bolder text-subtitle2">国名</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -34,7 +38,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </q-markup-table>
         </div>
       </template>
     </template>
@@ -66,16 +70,14 @@ const getAllRestaurant = async () => {
 };
 </script>
 
-<style lang="css">
-table {
-  border-collapse: collapse;
+<style lang="css" scoped>
+.q-table thead {
+  height: 70px;
 }
 
 th {
-  border: 1px grey solid;
-  border-collapse: collapse;
-  background-color: rgb(246, 242, 242);
   width: 200px;
+  background-color: whitesmoke;
 }
 
 .restaurantsList {
@@ -84,12 +86,14 @@ th {
 }
 
 .link {
-  display: block;
   text-decoration: none;
-  color: black;
+  color: #3ea6ff;
+  display: inline-block;
+  transition: 0.3s;
+  transform: scale(1);
 }
-
 .link:hover {
-  background-color: #fce2aa;
+  font-weight: bold;
+  transform: scale(1.05);
 }
 </style>

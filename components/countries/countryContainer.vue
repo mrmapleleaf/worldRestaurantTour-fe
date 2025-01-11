@@ -9,12 +9,18 @@
           <p>表示する内容がありません</p>
         </template>
         <template v-else>
-          <div class="countryList">
-            <table>
+          <div class="countryList q-pb-xl">
+            <q-markup-table bordered>
               <thead>
                 <tr>
-                  <th>国名</th>
-                  <th>訪問有無</th>
+                  <th>
+                    <span class="text-weight-bolder text-subtitle2">国名</span>
+                  </th>
+                  <th>
+                    <span class="text-weight-bolder text-subtitle2"
+                      >訪問経験</span
+                    >
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -28,7 +34,7 @@
                   <td v-else>未訪問</td>
                 </tr>
               </tbody>
-            </table>
+            </q-markup-table>
           </div>
         </template>
       </template>
@@ -79,28 +85,19 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-table {
-  border-collapse: collapse;
-}
-
+<style lang="css" scoped>
 th {
-  border: 1px grey solid;
   border-collapse: collapse;
   background-color: rgb(246, 242, 242);
   width: 200px;
 }
 
+.q-table thead {
+  height: 70px;
+}
+
 .countryList {
   text-align: center;
   display: inline-block;
-}
-
-a {
-  display: block;
-}
-
-a:hover {
-  background-color: #fce2aa;
 }
 </style>
