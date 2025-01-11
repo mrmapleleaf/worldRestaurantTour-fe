@@ -53,5 +53,11 @@ li {
   color: white;
   font-weight: bold;
   text-decoration: none;
+  transition: 0.3s;
+}
+
+.header_link:hover {
+  font-weight: bold;
+  color: rgba(255, 123, 0, 0.847);
 }
 </style>

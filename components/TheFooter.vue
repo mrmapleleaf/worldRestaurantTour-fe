@@ -8,8 +8,6 @@
 
 <style lang="css" scoped>
 footer {
-  bottom: 0;
-  left: 0;
   width: 100%;
   height: 200px;
   background: #ffbb70;
@@ -19,5 +17,6 @@ footer {
 }
 .footer-text {
   color: white;
+  font-weight: bold;
 }
 </style>
