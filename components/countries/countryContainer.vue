@@ -87,18 +87,6 @@ const getAllCountries = async () => {
   }
 };
 
-const onClickCountryName = async (countryId: number) => {
-  try {
-    const response = await $fetch<RestaurantResponse>(
-      `http://localhost:8080/restaurant/detail/${countryId}`
-    );
-  } catch (error) {
-    console.log(error);
-  } finally {
-    loading.value = false;
-  }
-};
-
 const countCompletedCountry = (countries: Array<Countries>) => {
   return countries.filter((country: Countries) => country.completed).length;
 };
