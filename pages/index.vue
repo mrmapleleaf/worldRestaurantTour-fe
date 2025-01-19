@@ -14,6 +14,9 @@
         <button @click="setNextCountry">
           <label class="button-text">次に行く国を選ぶ！</label></button
         ><br /><br />
+        <button @click="openModal">
+          <label class="button-text">サンプル</label>
+        </button>
       </template>
       <template v-else>
         <button @click="visitChosenCountry">
@@ -24,25 +27,43 @@
         ><br /><br />
       </template>
     </div>
+    <template v-if="modalStore.isVisible">
+      <RegisterRestaurantModal></RegisterRestaurantModal>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import RegisterRestaurantModal from '~/components/restaurants/registerRestaurantModal.vue';
 import type {
   Countries,
   AllCountriesIndexResponse,
   NextCountryResponse,
 } from '~/interfaces';
+import { useModalStore } from '~/stores/modal';
 
 const allCountries = ref<Array<Countries>>([]);
 const unvisitedCountry = ref<Array<Countries>>([]);
 const nextCountry = ref<Countries | null>(null!);
 
+const modalStore = useModalStore();
+
 onMounted(() => {
   getAllCountries();
   getNextCountry();
 });
+
+const openModal = () => {
+  const confirmFlg = confirm(`あの国に行ってきましたか？`);
+
+  if (confirmFlg) {
+    console.log(confirmFlg);
+    const result = modalStore.showModal();
+    console.log('isVisible', modalStore.$state.isVisible);
+    console.log('open modal');
+  }
+};
 
 const getAllCountries = async () => {
   try {
@@ -85,26 +106,12 @@ const unsetNextCountry = () => {
     nextCountry.value = null;
   }
 };
-const visitChosenCountry = () => {
+const visitChosenCountry = async () => {
   const confirmFlg = confirm(`${nextCountry.value!.name}に行ってきましたか？`);
-  if (confirmFlg) {
-    makeChosenCountryCompleted(nextCountry.value!.id);
-    nextCountry.value = null;
-  }
-};
 
-const makeChosenCountryCompleted = async (id: number) => {
-  await $fetch('http://localhost:8080/country/setCompleted', {
-    method: 'PUT',
-    body: {
-      id: id,
-    },
-  }).catch((error: any) => {
-    showError({
-      statusCode: error.status,
-      statusMessage: error.message,
-    });
-  });
+  if (confirmFlg) {
+    modalStore.showModal();
+  }
 };
 
 const decideNextCountry = async (id: number) => {

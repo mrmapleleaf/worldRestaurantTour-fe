@@ -87,7 +87,7 @@ let countries = ref([] as Array<Countries>);
 let countriesMap = ref(new Map());
 let countriesOptions = ref(<Array<{ value: number; label: string }>>[]);
 
-const onSubmit = () => {
+const onSubmit = async () => {
   const confirmFlg = confirm(
     '下記の内容で登録しますか？\n' +
       `レストラン名：${name.value} \n` +
@@ -97,7 +97,8 @@ const onSubmit = () => {
   );
   if (confirmFlg) {
     // レストラン登録処理
-    registerRestaurant();
+    await registerRestaurant();
+    makeChosenCountryCompleted();
   }
 };
 
@@ -108,7 +109,7 @@ const onReset = () => {
   thoughts.value = null;
 };
 
-const getAllCountriesForOption = onMounted(async () => {
+const getOptionsForQSelect = onMounted(async () => {
   // すべての国を取得
   await getAllCountries();
 
@@ -124,6 +125,7 @@ const getAllCountriesForOption = onMounted(async () => {
       label: value,
     })
   );
+  console.log(countriesOptions.value);
 });
 
 const getAllCountries = async () => {
@@ -157,8 +159,23 @@ const registerRestaurant = async () => {
   }
 
   if (response != null) {
+    useModalStore().$state.isVisible = false;
     await navigateTo(`/restaurants/${response.restaurant.id}`);
   }
+};
+
+const makeChosenCountryCompleted = async () => {
+  await $fetch('http://localhost:8080/country/setCompleted', {
+    method: 'PUT',
+    body: {
+      id: countryId.value,
+    },
+  }).catch((error: any) => {
+    showError({
+      statusCode: error.status,
+      statusMessage: error.message,
+    });
+  });
 };
 </script>
 
