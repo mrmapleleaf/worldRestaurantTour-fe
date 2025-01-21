@@ -21,10 +21,6 @@ export interface AllCountriesIndexResponse {
   countries: Array<Countries>;
 }
 
-export interface CountryResponse {
-  country: Countries;
-}
-
 export interface NextCountryResponse {
   nextCountry: Array<Countries>;
 }
@@ -38,5 +34,9 @@ export interface AllRestaurantsIndexResponse {
 }
 
 export interface RestaurantDetailResponse {
-  restaurant: Restaurant;
+  id: number;
+  name: string;
+  thoughts: string;
+  url: string;
+  countries: Countries;
 }

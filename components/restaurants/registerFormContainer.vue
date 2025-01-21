@@ -160,7 +160,7 @@ const registerRestaurant = async () => {
 
   if (response != null) {
     useModalStore().$state.isVisible = false;
-    await navigateTo(`/restaurants/${response.restaurant.id}`);
+    await navigateTo(`/restaurants/${response.id}`);
   }
 };
 

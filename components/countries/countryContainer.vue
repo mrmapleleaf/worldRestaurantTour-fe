@@ -37,15 +37,7 @@
               <template v-slot:body="props">
                 <q-tr :props="props" :key="`m_${props.row.id}`">
                   <q-td>
-                    <NuxtLink
-                      class="link"
-                      :to="{
-                        name: 'restaurants-id',
-                        params: { id: props.row.id },
-                      }"
-                    >
-                      {{ props.row.name }}
-                    </NuxtLink>
+                    {{ props.row.name }}
                   </q-td>
                   <q-td>
                     {{ props.row.isCompleted }}
@@ -61,11 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  Countries,
-  AllCountriesIndexResponse,
-  RestaurantResponse,
-} from '~/interfaces';
+import type { Countries, AllCountriesIndexResponse } from '~/interfaces';
 
 let countries = ref([] as Array<Countries>);
 const loading = ref(false);

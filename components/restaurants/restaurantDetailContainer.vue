@@ -52,22 +52,21 @@
 import type { Restaurant, RestaurantDetailResponse } from '~/interfaces';
 import { mdiAccountKey, mdiTableChair } from '@quasar/extras/mdi-v6';
 
-let restaurantDetail: Restaurant = reactive<Restaurant>({
-  id: 0,
-  name: '',
-  thoughts: '',
-  url: '',
-  countries: {
+let restaurantDetail: RestaurantDetailResponse =
+  reactive<RestaurantDetailResponse>({
     id: 0,
     name: '',
-    next: false,
-    completed: false,
-    created_at: '',
-    updated_at: '',
-  },
-  created_at: '',
-  updated_at: '',
-});
+    thoughts: '',
+    url: '',
+    countries: {
+      id: 0,
+      name: '',
+      next: false,
+      completed: false,
+      created_at: '',
+      updated_at: '',
+    },
+  });
 let loading = ref(false);
 
 interface Props {
@@ -82,7 +81,7 @@ const getRestaurantDetail = async () => {
     const response = await $fetch<RestaurantDetailResponse>(
       `http://localhost:8080/restaurant/detail/${restaurantId}`
     );
-    restaurantDetail = response.restaurant;
+    restaurantDetail = response;
   } catch (error) {
     console.log(error);
   } finally {
