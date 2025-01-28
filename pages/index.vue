@@ -45,7 +45,7 @@ import { useModalStore } from '~/stores/modal';
 
 const allCountries = ref<Array<Countries>>([]);
 const unvisitedCountry = ref<Array<Countries>>([]);
-const nextCountry = ref<Countries | null>(null!);
+const nextCountry = ref<Countries | null>(null);
 
 const modalStore = useModalStore();
 
