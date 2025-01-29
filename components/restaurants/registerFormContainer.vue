@@ -48,6 +48,7 @@
           v-model="thoughts"
           label="感想"
           hint="※必須"
+          type="textarea"
           lazy-rules
           :rules="[
             (val) => baseValidation(val),
@@ -85,7 +86,7 @@ const thoughts = ref(null);
 
 let countries = ref([] as Array<Countries>);
 let countriesMap = ref(new Map());
-let countriesOptions = ref(<Array<{ value: number; label: string }>>[]);
+let countriesOptions = ref([] as Array<{ value: number; label: string }>);
 
 const onSubmit = async () => {
   const confirmFlg = confirm(
@@ -93,7 +94,8 @@ const onSubmit = async () => {
       `レストラン名：${name.value} \n` +
       `国名：${countriesMap.value.get(countryId.value)} \n` +
       `URL：${url.value || '登録なし'} \n` +
-      `感想：${thoughts.value} \n`
+      `感想：\n` +
+      `${thoughts.value}`
   );
   if (confirmFlg) {
     // レストラン登録処理

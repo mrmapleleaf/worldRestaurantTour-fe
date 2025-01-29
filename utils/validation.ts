@@ -2,7 +2,7 @@ export const baseValidation = (val: any) => {
   return (val && val.length > 0) || 'このフィールドは必須です';
 };
 export const controlCharValidation = (val: any) => {
-  const controlCharPattern = /[\x00-\x1F\x7F]/;
+  const controlCharPattern = /[\x00-\x09\x0B-\x0C\x0E-\x1F\x7F]/;
   return controlCharPattern.test(val) ? '制御文字は含められません' : true;
 };
 export const symbolValidation = (val: any) => {

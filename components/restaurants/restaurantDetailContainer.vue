@@ -39,7 +39,7 @@
               </th>
             </tr>
             <tr>
-              <td>{{ restaurantDetail.thoughts }}</td>
+              <td class="pre-wrap-text">{{ restaurantDetail.thoughts }}</td>
             </tr>
           </thead>
         </q-markup-table>
@@ -97,6 +97,9 @@ onMounted(() => {
 <style lang="css" scoped>
 .table_header {
   background-color: #ffbb70;
+}
+.pre-wrap-text {
+  white-space: pre-wrap;
 }
 th {
   background-color: whitesmoke;
