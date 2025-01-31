@@ -12,10 +12,7 @@
     <div class="button_area">
       <template v-if="!nextCountry">
         <button @click="setNextCountry">
-          <label class="button-text">次に行く国を選ぶ！</label></button
-        ><br /><br />
-        <button @click="openModal">
-          <label class="button-text">サンプル</label>
+          <label class="button-text">次に行く国を選ぶ！</label>
         </button>
       </template>
       <template v-else>
@@ -53,17 +50,6 @@ onMounted(() => {
   getAllCountries();
   getNextCountry();
 });
-
-const openModal = () => {
-  const confirmFlg = confirm(`あの国に行ってきましたか？`);
-
-  if (confirmFlg) {
-    console.log(confirmFlg);
-    const result = modalStore.showModal();
-    console.log('isVisible', modalStore.$state.isVisible);
-    console.log('open modal');
-  }
-};
 
 const getAllCountries = async () => {
   try {
@@ -145,12 +131,7 @@ const resetNextCountry = async (id: number) => {
 const getNextCountry = async () => {
   try {
     let response = await $fetch<NextCountryResponse>(
-      'http://localhost:8080/country/nextCountry',
-      {
-        params: {
-          next: true,
-        },
-      }
+      'http://localhost:8080/country/nextCountry'
     );
 
     let nextCountryList = new Array<Countries>();
